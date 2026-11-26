@@ -1,0 +1,7 @@
+# CORTEX-ECCNR Limitations and Threats to Validity
+
+1. **Subgraph vs Whole-Brain Execution**: Although the full FlyWire FAFB v783 connectome (`139,255` neurons, `15,091,983` directed edges) was acquired, verified, and cached as sparse CSR arrays, live evolutionary simulations run on a role-stratified `256`-node induced subgraph (`flywire_fafb_v783_sub256`) to fit within single-machine CPU/RAM budgets (`8` cores, `16.76 GB` RAM).
+2. **Graph-Derived Rate Model**: Synaptic signs (`ACh: +1`, `GABA/Glut/Hist: -1`, monoamines: `0`) and $\log(1 + c_{ij})$ weight initialization are explicit modelling assumptions, not measured physiological conductances or spiking membrane biophysics.
+3. **Training & Plasticity Regime**: Online reward-modulated eligibility traces (`lr=0.02`) are weaker than full backpropagation-through-time (BPTT) or PPO over 100k+ steps; consequently, absolute task success rates on hard sequential/memory tasks remain modest within a 4,800-step budget.
+4. **Optional Conditions Deferred**: The 1,000-lineage logical population scale-up and live Antigravity-assisted supervision condition were not executed in this run; scripted repair controllers are never labeled as Antigravity supervision.
+5. **Prior Study Separation**: `CORTEX-INTERVENE` was not present in the local workspace or `kai9987kai` GitHub repositories; compatibility was established against `Sonapse-LAB` (`363681d`) interfaces (`155`-dim observation, `5`-dim action).

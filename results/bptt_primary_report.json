@@ -1,0 +1,138 @@
+{
+  "mode": "bptt_primary",
+  "dataset_id": "flywire_fafb_v783_sub256",
+  "provenance_tier": "authentic_subgraph",
+  "topology_hash": "ea70dd96bc644b2e",
+  "n_nodes": 256,
+  "n_edges": 2982,
+  "total_wall_seconds": 2029.46,
+  "platform": "Windows-11-10.0.28120-SP0",
+  "python": "3.12.10",
+  "successive_action_experiment": {
+    "single_recurrent_mean_reward": -1.058871702658593,
+    "successive_handoff_mean_reward": -2.2056113891575952,
+    "delta": -1.1467396864990023
+  },
+  "summary": [
+    {
+      "condition": "fixed_connectome",
+      "n_replicates": 3,
+      "mean_reward": -1.5019360271032962,
+      "ci95_reward": 0.6029602197806083,
+      "mean_success": 0.04000000000000001,
+      "ci95_success": 0.07840000000000001,
+      "mean_pred_err": 0.1198720972776036,
+      "mean_env_steps": 24000.0,
+      "mean_wall_s": 44.84433333333334,
+      "mean_energy": 204.68696666666665
+    },
+    {
+      "condition": "single_plastic",
+      "n_replicates": 3,
+      "mean_reward": -2.0110533242325093,
+      "ci95_reward": 0.5901856635838783,
+      "mean_success": 0.04000000000000001,
+      "ci95_success": 0.07840000000000001,
+      "mean_pred_err": 0.129635859510611,
+      "mean_env_steps": 24000.0,
+      "mean_wall_s": 54.433,
+      "mean_energy": 212.7740666666667
+    },
+    {
+      "condition": "sequential_correction",
+      "n_replicates": 3,
+      "mean_reward": -1.7138192912897685,
+      "ci95_reward": 0.7264220205161765,
+      "mean_success": 0.04,
+      "ci95_success": 0.045264261104466665,
+      "mean_pred_err": 0.0883518998965031,
+      "mean_env_steps": 24000.0,
+      "mean_wall_s": 76.68133333333333,
+      "mean_energy": 13.695233333333334
+    },
+    {
+      "condition": "parallel_best",
+      "n_replicates": 3,
+      "mean_reward": -2.1547935692315865,
+      "ci95_reward": 0.5233728385022,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.08016927896191677,
+      "mean_env_steps": 24000.0,
+      "mean_wall_s": 80.38799999999999,
+      "mean_energy": 41.43333333333334
+    },
+    {
+      "condition": "fusion_only",
+      "n_replicates": 3,
+      "mean_reward": -1.7892636750021218,
+      "ci95_reward": 0.31332658569356525,
+      "mean_success": 0.013333333333333334,
+      "ci95_success": 0.02613333333333334,
+      "mean_pred_err": 0.084481902777921,
+      "mean_env_steps": 24000.0,
+      "mean_wall_s": 80.41,
+      "mean_energy": 48.410533333333326
+    },
+    {
+      "condition": "fusion_ordinary_replay",
+      "n_replicates": 3,
+      "mean_reward": -1.2891541378428515,
+      "ci95_reward": 0.6637426802866236,
+      "mean_success": 0.13333333333333333,
+      "ci95_success": 0.02613333333333332,
+      "mean_pred_err": 0.03625686982214584,
+      "mean_env_steps": 24000.0,
+      "mean_wall_s": 78.83,
+      "mean_energy": 42.370799999999996
+    },
+    {
+      "condition": "fusion_activity_replay",
+      "n_replicates": 3,
+      "mean_reward": -2.182080249748106,
+      "ci95_reward": 0.3379853844081232,
+      "mean_success": 0.013333333333333334,
+      "ci95_success": 0.02613333333333334,
+      "mean_pred_err": 0.046070341869391206,
+      "mean_env_steps": 24000.0,
+      "mean_wall_s": 78.92899999999999,
+      "mean_energy": 51.010933333333334
+    },
+    {
+      "condition": "full_dtr_finetune",
+      "n_replicates": 3,
+      "mean_reward": -1.769423597903834,
+      "ci95_reward": 0.3377395219966162,
+      "mean_success": 0.013333333333333334,
+      "ci95_success": 0.02613333333333334,
+      "mean_pred_err": 0.11295072128168411,
+      "mean_env_steps": 24000.0,
+      "mean_wall_s": 79.927,
+      "mean_energy": 68.31336666666665
+    },
+    {
+      "condition": "ann_analogue",
+      "n_replicates": 3,
+      "mean_reward": -2.1694493403805146,
+      "ci95_reward": 0.33045928142269293,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.06738000300547316,
+      "mean_env_steps": 24000.0,
+      "mean_wall_s": 46.07333333333333,
+      "mean_energy": 2175.1266
+    },
+    {
+      "condition": "rewired_control",
+      "n_replicates": 3,
+      "mean_reward": -1.918187050134458,
+      "ci95_reward": 0.6215909166453333,
+      "mean_success": 0.013333333333333334,
+      "ci95_success": 0.02613333333333334,
+      "mean_pred_err": 0.10911521825173665,
+      "mean_env_steps": 24000.0,
+      "mean_wall_s": 55.336333333333336,
+      "mean_energy": 60.13953333333333
+    }
+  ]
+}

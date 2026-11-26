@@ -1,0 +1,78 @@
+{
+  "mode": "smoke",
+  "dataset_id": "synthetic_fixture_48",
+  "provenance_tier": "synthetic_fixture",
+  "topology_hash": "c68e5958d0d6a6cc",
+  "n_nodes": 48,
+  "n_edges": 272,
+  "total_wall_seconds": 8.89,
+  "platform": "Windows-11-10.0.28120-SP0",
+  "python": "3.12.10",
+  "successive_action_experiment": {
+    "single_recurrent_mean_reward": -0.40272232069997227,
+    "successive_handoff_mean_reward": -1.1768659215853114,
+    "delta": -0.7741436008853392
+  },
+  "summary": [
+    {
+      "condition": "fixed_connectome",
+      "n_replicates": 1,
+      "mean_reward": -0.8933059893656885,
+      "ci95_reward": 0.0,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.11347940684854983,
+      "mean_env_steps": 800.0,
+      "mean_wall_s": 0.729,
+      "mean_energy": 2.1032
+    },
+    {
+      "condition": "single_plastic",
+      "n_replicates": 1,
+      "mean_reward": -0.8912582734170998,
+      "ci95_reward": 0.0,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.11387205357228716,
+      "mean_env_steps": 800.0,
+      "mean_wall_s": 1.126,
+      "mean_energy": 2.1069
+    },
+    {
+      "condition": "fusion_only",
+      "n_replicates": 1,
+      "mean_reward": -0.8835232909063597,
+      "ci95_reward": 0.0,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.13576027546357364,
+      "mean_env_steps": 810.0,
+      "mean_wall_s": 2.305,
+      "mean_energy": 2.1293
+    },
+    {
+      "condition": "full_dtr_finetune",
+      "n_replicates": 1,
+      "mean_reward": -0.7844306408377036,
+      "ci95_reward": 0.0,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.16784066110275064,
+      "mean_env_steps": 820.0,
+      "mean_wall_s": 2.347,
+      "mean_energy": 2.4334
+    },
+    {
+      "condition": "ann_analogue",
+      "n_replicates": 1,
+      "mean_reward": -0.8260795684383113,
+      "ci95_reward": 0.0,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.03834500892367214,
+      "mean_env_steps": 800.0,
+      "mean_wall_s": 0.562,
+      "mean_energy": 4.8713
+    }
+  ]
+}

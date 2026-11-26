@@ -1,0 +1,49 @@
+# CORTEX-ECCNR Default Configuration
+seed: 42
+dataset:
+  name: flywire_fafb_v783
+  data_dir: data/flywire
+  subgraph_nodes: 256
+  min_synapse_count: 1
+  use_synthetic_if_missing: false
+
+substrate:
+  dt: 0.1
+  tau: 1.0
+  base_gain: 0.85
+  row_norm_cap: 0.90
+  firing_rate_cap: 1.0
+  adaptive_threshold_lr: 0.01
+  neuromod_bounds: [-0.5, 0.5]
+
+development:
+  max_new_neurons: 32
+  max_new_edges: 256
+  prune_threshold: 0.01
+  plasticity_lr: 0.02
+  enable_neurogenesis: true
+  enable_synaptogenesis: true
+  enable_pruning: true
+
+evolution:
+  pilot_lineages: 4
+  pilot_generations: 3
+  scale_lineages: 8
+  scale_generations: 4
+  repair_budget_edits: 16
+  novelty_archive_size: 8
+
+replay:
+  keyframe_stride: 4
+  max_trace_steps: 64
+  guidance_strength: 0.35
+  anneal_final_factor: 0.0
+  confidence_threshold: 0.6
+
+budgets:
+  env_steps_per_lineage_gen: 1200
+  adaptation_steps: 400
+  replay_steps: 400
+  final_finetune_steps: 400
+  eval_episodes_per_task: 4
+  max_episode_steps: 80

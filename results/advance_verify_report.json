@@ -1,0 +1,78 @@
+{
+  "mode": "advance_verify",
+  "dataset_id": "flywire_fafb_v783_sub256",
+  "provenance_tier": "authentic_subgraph",
+  "topology_hash": "ea70dd96bc644b2e",
+  "n_nodes": 256,
+  "n_edges": 2982,
+  "total_wall_seconds": 844.28,
+  "platform": "Windows-11-10.0.28120-SP0",
+  "python": "3.12.10",
+  "successive_action_experiment": {
+    "single_recurrent_mean_reward": -1.058871702658593,
+    "successive_handoff_mean_reward": -2.2056113891575952,
+    "delta": -1.1467396864990023
+  },
+  "summary": [
+    {
+      "condition": "single_plastic",
+      "n_replicates": 3,
+      "mean_reward": -1.6644008874068186,
+      "ci95_reward": 0.41152514736211215,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.1275552843131332,
+      "mean_env_steps": 12000.0,
+      "mean_wall_s": 46.38933333333333,
+      "mean_energy": 112.22590000000001
+    },
+    {
+      "condition": "full_dtr_finetune",
+      "n_replicates": 3,
+      "mean_reward": -1.5081280846754297,
+      "ci95_reward": 0.5461993207305946,
+      "mean_success": 0.05333333333333334,
+      "ci95_success": 0.02613333333333334,
+      "mean_pred_err": 0.13345107715892104,
+      "mean_env_steps": 12000.0,
+      "mean_wall_s": 55.74333333333334,
+      "mean_energy": 43.30866666666666
+    },
+    {
+      "condition": "fusion_ordinary_replay",
+      "n_replicates": 3,
+      "mean_reward": -1.515774057930478,
+      "ci95_reward": 0.11389338931583275,
+      "mean_success": 0.05333333333333334,
+      "ci95_success": 0.10453333333333335,
+      "mean_pred_err": 0.05362689765271583,
+      "mean_env_steps": 12000.0,
+      "mean_wall_s": 59.232,
+      "mean_energy": 33.82556666666667
+    },
+    {
+      "condition": "ewc_dtr_finetune",
+      "n_replicates": 3,
+      "mean_reward": -1.6720861822498427,
+      "ci95_reward": 0.9056962868997502,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.0672999659622467,
+      "mean_env_steps": 12000.0,
+      "mean_wall_s": 62.28033333333334,
+      "mean_energy": 45.4412
+    },
+    {
+      "condition": "gated_fusion_ewc",
+      "n_replicates": 3,
+      "mean_reward": -1.1190981279314531,
+      "ci95_reward": 1.2524910905699025,
+      "mean_success": 0.12,
+      "ci95_success": 0.11975797816151264,
+      "mean_pred_err": 0.054932212471166524,
+      "mean_env_steps": 12000.0,
+      "mean_wall_s": 57.33133333333334,
+      "mean_energy": 44.014833333333335
+    }
+  ]
+}

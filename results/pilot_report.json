@@ -1,0 +1,138 @@
+{
+  "mode": "pilot",
+  "dataset_id": "flywire_fafb_v783_sub256",
+  "provenance_tier": "authentic_subgraph",
+  "topology_hash": "ea70dd96bc644b2e",
+  "n_nodes": 256,
+  "n_edges": 2982,
+  "total_wall_seconds": 162.38,
+  "platform": "Windows-11-10.0.28120-SP0",
+  "python": "3.12.10",
+  "successive_action_experiment": {
+    "single_recurrent_mean_reward": -1.058871702658593,
+    "successive_handoff_mean_reward": -2.2056113891575952,
+    "delta": -1.1467396864990023
+  },
+  "summary": [
+    {
+      "condition": "fixed_connectome",
+      "n_replicates": 2,
+      "mean_reward": -2.469177070534196,
+      "ci95_reward": 0.550804990426919,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.1431076877610758,
+      "mean_env_steps": 3200.0,
+      "mean_wall_s": 2.607,
+      "mean_energy": 43.67205
+    },
+    {
+      "condition": "single_plastic",
+      "n_replicates": 2,
+      "mean_reward": -2.5575091642586676,
+      "ci95_reward": 0.41820663486378246,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.13085165693284945,
+      "mean_env_steps": 3200.0,
+      "mean_wall_s": 4.7545,
+      "mean_energy": 43.693799999999996
+    },
+    {
+      "condition": "sequential_correction",
+      "n_replicates": 2,
+      "mean_reward": -1.8932620371351803,
+      "ci95_reward": 1.6064143269060092,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.0417640531999447,
+      "mean_env_steps": 3192.0,
+      "mean_wall_s": 8.930499999999999,
+      "mean_energy": 14.49005
+    },
+    {
+      "condition": "parallel_best",
+      "n_replicates": 2,
+      "mean_reward": -2.000258108960442,
+      "ci95_reward": 0.785952836572752,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.14344345343726067,
+      "mean_env_steps": 3192.0,
+      "mean_wall_s": 10.125499999999999,
+      "mean_energy": 25.7709
+    },
+    {
+      "condition": "fusion_only",
+      "n_replicates": 2,
+      "mean_reward": -1.3503638696586502,
+      "ci95_reward": 0.3308152102001422,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.11771979878695371,
+      "mean_env_steps": 3240.0,
+      "mean_wall_s": 9.9325,
+      "mean_energy": 29.3981
+    },
+    {
+      "condition": "fusion_ordinary_replay",
+      "n_replicates": 2,
+      "mean_reward": -1.1594802104505568,
+      "ci95_reward": 0.2784976961769601,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.10047977012368695,
+      "mean_env_steps": 3240.0,
+      "mean_wall_s": 9.155999999999999,
+      "mean_energy": 33.24185
+    },
+    {
+      "condition": "fusion_activity_replay",
+      "n_replicates": 2,
+      "mean_reward": -1.1447271676139277,
+      "ci95_reward": 0.3381134109618616,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.10110769801548063,
+      "mean_env_steps": 3240.0,
+      "mean_wall_s": 10.435500000000001,
+      "mean_energy": 33.24295
+    },
+    {
+      "condition": "full_dtr_finetune",
+      "n_replicates": 2,
+      "mean_reward": -1.6731921925189837,
+      "ci95_reward": 0.6318081566541474,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.11555058911528128,
+      "mean_env_steps": 3276.0,
+      "mean_wall_s": 10.732,
+      "mean_energy": 36.815
+    },
+    {
+      "condition": "ann_analogue",
+      "n_replicates": 2,
+      "mean_reward": -1.2146306877618769,
+      "ci95_reward": 0.9713238023779387,
+      "mean_success": 0.08,
+      "ci95_success": 0.1568,
+      "mean_pred_err": 0.01996455819011376,
+      "mean_env_steps": 3200.0,
+      "mean_wall_s": 2.035,
+      "mean_energy": 328.649
+    },
+    {
+      "condition": "rewired_control",
+      "n_replicates": 2,
+      "mean_reward": -1.1715298256416502,
+      "ci95_reward": 0.6299627123649907,
+      "mean_success": 0.0,
+      "ci95_success": 0.0,
+      "mean_pred_err": 0.17845161906257273,
+      "mean_env_steps": 3276.0,
+      "mean_wall_s": 11.187000000000001,
+      "mean_energy": 36.3378
+    }
+  ]
+}

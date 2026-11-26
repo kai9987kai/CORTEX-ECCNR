@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>CORTEX-ECCNR Experimental Dashboard</title>
+<style>
+  :root {
+    --bg-light: #f4f6fb; --bg-dark: #0f172a;
+    --surf-light: #ffffff; --surf-dark: #1e293b;
+    --surf2-light: #e8eef7; --surf2-dark: #0f172a;
+    --text-light: #0f172a; --text-dark: #e2e8f0;
+    --muted-light: #475569; --muted-dark: #94a3b8;
+    --border-light: #cbd5e1; --border-dark: #334155;
+    --accent-light: #0369a1; --accent-dark: #38bdf8;
+    --bg: var(--bg-light); --surf: var(--surf-light); --surf2: var(--surf2-light);
+    --text: var(--text-light); --muted: var(--muted-light); --border: var(--border-light); --accent: var(--accent-light);
+    @media (prefers-color-scheme: dark) {
+      --bg: var(--bg-dark); --surf: var(--surf-dark); --surf2: var(--surf2-dark);
+      --text: var(--text-dark); --muted: var(--muted-dark); --border: var(--border-dark); --accent: var(--accent-dark);
+    }
+    @supports (color: light-dark(white, black)) {
+      --bg: light-dark(var(--bg-light), var(--bg-dark));
+      --surf: light-dark(var(--surf-light), var(--surf-dark));
+      --surf2: light-dark(var(--surf2-light), var(--surf2-dark));
+      --text: light-dark(var(--text-light), var(--text-dark));
+      --muted: light-dark(var(--muted-light), var(--muted-dark));
+      --border: light-dark(var(--border-light), var(--border-dark));
+      --accent: light-dark(var(--accent-light), var(--accent-dark));
+    }
+    color-scheme: light dark;
+  }
+  body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 24px; }
+  h1, h2 { margin-top: 0; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-block-end: 24px; }
+  .card { background: var(--surf); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .metric { font-size: 1.55rem; font-weight: 700; color: var(--accent); }
+  .table-wrapper { overflow: auto; max-inline-size: 100%; container-type: inline-size; border: 1px solid var(--border); border-radius: 10px; background: var(--surf); }
+  table { width: 100%; min-inline-size: 680px; border-collapse: separate; border-spacing: 0; }
+  caption { text-align: start; padding: 10px 12px; font-weight: 600; background: var(--surf2); border-block-end: 1px solid var(--border); }
+  thead { position: sticky; inset-block-start: 0; z-index: 2; background: var(--surf2); }
+  th, td { padding: 10px 12px; border-block-end: 1px solid var(--border); text-align: start; font-size: 0.9rem; white-space: nowrap; }
+  th:has(> button) { padding: 0; }
+  thead th > button { width: 100%; min-block-size: 36px; padding: 10px 12px; background: transparent; border: none; color: inherit; font: inherit; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; gap: 6px; }
+  tbody th { position: sticky; inset-inline-start: 0; z-index: 1; background: var(--surf); }
+  tbody tr { view-transition-name: match-element; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none; }
+  }
+  .sort-icon::after { content: "↕"; opacity: 0.45; }
+  th[aria-sort="ascending"] .sort-icon::after { content: "↑"; opacity: 1; }
+  th[aria-sort="descending"] .sort-icon::after { content: "↓"; opacity: 1; }
+  code { background: var(--surf2); padding: 2px 6px; border-radius: 4px; color: var(--accent); }
+  @container (width < 600px) {
+    table { min-inline-size: 0; }
+    table, thead, tbody, tr, th, td { display: block; white-space: normal; }
+    thead { display: none; }
+    tr { margin-block-end: 12px; border: 1px solid var(--border); }
+    tbody th { position: sticky; inset-block-start: 0; background: var(--surf2); }
+    td:nth-child(2)::before { content: "N: "; font-weight: 600; }
+    td:nth-child(3)::before { content: "Mean Reward: "; font-weight: 600; }
+    td:nth-child(4)::before { content: "Success Rate: "; font-weight: 600; }
+    td:nth-child(5)::before { content: "Pred Error: "; font-weight: 600; }
+    td:nth-child(6)::before { content: "Env Steps: "; font-weight: 600; }
+    td:nth-child(7)::before { content: "Energy Proxy: "; font-weight: 600; }
+    td:nth-child(8)::before { content: "Wall (s): "; font-weight: 600; }
+  }
+</style>
+</head>
+<body>
+<h1>CORTEX-ECCNR: Evolutionary Connectome Consolidation &amp; Neural Replay</h1>
+<p>Dataset: <code id="ds-id"></code> | Provenance: <code id="prov-tier"></code> | Topology Hash: <code id="topo-hash"></code></p>
+
+<div class="grid">
+  <div class="card"><div>Subgraph Nodes</div><div class="metric" id="m-nodes">-</div></div>
+  <div class="card"><div>Induced Directed Edges</div><div class="metric" id="m-edges">-</div></div>
+  <div class="card"><div>Successive Handoff vs Single</div><div class="metric" id="m-handoff">-</div></div>
+  <div class="card"><div>Total Wall Time</div><div class="metric" id="m-time">-</div></div>
+</div>
+
+<p id="sort-status" role="status" class="visually-hidden"></p>
+<div tabindex="0" role="region" aria-labelledby="dash-caption" class="table-wrapper">
+  <table id="dash-table">
+    <caption id="dash-caption">Matched-Budget Experimental Matrix (Sealed Evaluation — Click Headers to Sort)</caption>
+    <thead>
+      <tr>
+        <th scope="col" data-type="text"><button type="button" commandfor="dash-table" command="--sort">Condition <span class="sort-icon" aria-hidden="true"></span></button></th>
+        <th scope="col" data-type="number">N</th>
+        <th scope="col" data-type="number"><button type="button" commandfor="dash-table" command="--sort">Mean Reward (±95% CI) <span class="sort-icon" aria-hidden="true"></span></button></th>
+        <th scope="col" data-type="number"><button type="button" commandfor="dash-table" command="--sort">Success Rate (±95% CI) <span class="sort-icon" aria-hidden="true"></span></button></th>
+        <th scope="col" data-type="number"><button type="button" commandfor="dash-table" command="--sort">Pred Error <span class="sort-icon" aria-hidden="true"></span></button></th>
+        <th scope="col" data-type="number">Env Steps</th>
+        <th scope="col" data-type="number"><button type="button" commandfor="dash-table" command="--sort">Energy Proxy <span class="sort-icon" aria-hidden="true"></span></button></th>
+        <th scope="col" data-type="number"><button type="button" commandfor="dash-table" command="--sort">Wall (s) <span class="sort-icon" aria-hidden="true"></span></button></th>
+      </tr>
+    </thead>
+    <tbody id="tbl-body"></tbody>
+  </table>
+</div>
+
+<script>
+const DATA = {"mode": "bptt_primary", "dataset_id": "flywire_fafb_v783_sub256", "provenance_tier": "authentic_subgraph", "topology_hash": "ea70dd96bc644b2e", "n_nodes": 256, "n_edges": 2982, "total_wall_seconds": 2029.46, "platform": "Windows-11-10.0.28120-SP0", "python": "3.12.10", "successive_action_experiment": {"single_recurrent_mean_reward": -1.058871702658593, "successive_handoff_mean_reward": -2.2056113891575952, "delta": -1.1467396864990023}, "summary": [{"condition": "fixed_connectome", "n_replicates": 3, "mean_reward": -1.5019360271032962, "ci95_reward": 0.6029602197806083, "mean_success": 0.04000000000000001, "ci95_success": 0.07840000000000001, "mean_pred_err": 0.1198720972776036, "mean_env_steps": 24000.0, "mean_wall_s": 44.84433333333334, "mean_energy": 204.68696666666665}, {"condition": "single_plastic", "n_replicates": 3, "mean_reward": -2.0110533242325093, "ci95_reward": 0.5901856635838783, "mean_success": 0.04000000000000001, "ci95_success": 0.07840000000000001, "mean_pred_err": 0.129635859510611, "mean_env_steps": 24000.0, "mean_wall_s": 54.433, "mean_energy": 212.7740666666667}, {"condition": "sequential_correction", "n_replicates": 3, "mean_reward": -1.7138192912897685, "ci95_reward": 0.7264220205161765, "mean_success": 0.04, "ci95_success": 0.045264261104466665, "mean_pred_err": 0.0883518998965031, "mean_env_steps": 24000.0, "mean_wall_s": 76.68133333333333, "mean_energy": 13.695233333333334}, {"condition": "parallel_best", "n_replicates": 3, "mean_reward": -2.1547935692315865, "ci95_reward": 0.5233728385022, "mean_success": 0.0, "ci95_success": 0.0, "mean_pred_err": 0.08016927896191677, "mean_env_steps": 24000.0, "mean_wall_s": 80.38799999999999, "mean_energy": 41.43333333333334}, {"condition": "fusion_only", "n_replicates": 3, "mean_reward": -1.7892636750021218, "ci95_reward": 0.31332658569356525, "mean_success": 0.013333333333333334, "ci95_success": 0.02613333333333334, "mean_pred_err": 0.084481902777921, "mean_env_steps": 24000.0, "mean_wall_s": 80.41, "mean_energy": 48.410533333333326}, {"condition": "fusion_ordinary_replay", "n_replicates": 3, "mean_reward": -1.2891541378428515, "ci95_reward": 0.6637426802866236, "mean_success": 0.13333333333333333, "ci95_success": 0.02613333333333332, "mean_pred_err": 0.03625686982214584, "mean_env_steps": 24000.0, "mean_wall_s": 78.83, "mean_energy": 42.370799999999996}, {"condition": "fusion_activity_replay", "n_replicates": 3, "mean_reward": -2.182080249748106, "ci95_reward": 0.3379853844081232, "mean_success": 0.013333333333333334, "ci95_success": 0.02613333333333334, "mean_pred_err": 0.046070341869391206, "mean_env_steps": 24000.0, "mean_wall_s": 78.92899999999999, "mean_energy": 51.010933333333334}, {"condition": "full_dtr_finetune", "n_replicates": 3, "mean_reward": -1.769423597903834, "ci95_reward": 0.3377395219966162, "mean_success": 0.013333333333333334, "ci95_success": 0.02613333333333334, "mean_pred_err": 0.11295072128168411, "mean_env_steps": 24000.0, "mean_wall_s": 79.927, "mean_energy": 68.31336666666665}, {"condition": "ann_analogue", "n_replicates": 3, "mean_reward": -2.1694493403805146, "ci95_reward": 0.33045928142269293, "mean_success": 0.0, "ci95_success": 0.0, "mean_pred_err": 0.06738000300547316, "mean_env_steps": 24000.0, "mean_wall_s": 46.07333333333333, "mean_energy": 2175.1266}, {"condition": "rewired_control", "n_replicates": 3, "mean_reward": -1.918187050134458, "ci95_reward": 0.6215909166453333, "mean_success": 0.013333333333333334, "ci95_success": 0.02613333333333334, "mean_pred_err": 0.10911521825173665, "mean_env_steps": 24000.0, "mean_wall_s": 55.336333333333336, "mean_energy": 60.13953333333333}]};
+document.getElementById('ds-id').textContent = DATA.dataset_id;
+document.getElementById('prov-tier').textContent = DATA.provenance_tier;
+document.getElementById('topo-hash').textContent = DATA.topology_hash;
+document.getElementById('m-nodes').textContent = DATA.n_nodes;
+document.getElementById('m-edges').textContent = DATA.n_edges;
+const sa = DATA.successive_action_experiment || {};
+document.getElementById('m-handoff').textContent = (sa.delta >= 0 ? '+' : '') + (sa.delta || 0).toFixed(4);
+document.getElementById('m-time').textContent = (DATA.total_wall_seconds || 0) + 's';
+
+const tbody = document.getElementById('tbl-body');
+(DATA.summary || []).forEach(r => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <th scope="row" data-value="${r.condition}">${r.condition}</th>
+    <td data-value="${r.n_replicates}">${r.n_replicates}</td>
+    <td data-value="${r.mean_reward}">${r.mean_reward.toFixed(4)} ± ${r.ci95_reward.toFixed(4)}</td>
+    <td data-value="${r.mean_success}">${(r.mean_success * 100).toFixed(1)}% ± ${(r.ci95_success * 100).toFixed(1)}%</td>
+    <td data-value="${r.mean_pred_err}">${r.mean_pred_err.toFixed(4)}</td>
+    <td data-value="${r.mean_env_steps}">${Math.round(r.mean_env_steps)}</td>
+    <td data-value="${r.mean_energy}">${r.mean_energy.toFixed(3)}</td>
+    <td data-value="${r.mean_wall_s}">${r.mean_wall_s.toFixed(2)}s</td>
+  `;
+  tbody.appendChild(tr);
+});
+
+const table = document.getElementById('dash-table');
+const statusEl = document.getElementById('sort-status');
+const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+
+function reorder(container, orderedNodes) {
+  const move = Object.hasOwn(Element.prototype, 'moveBefore')
+    ? (node) => container.moveBefore(node, null)
+    : (node) => container.append(node);
+  for (const node of orderedNodes) move(node);
+}
+
+function sortBy(button) {
+  const th = button.closest('th');
+  const dir = th.getAttribute('aria-sort') === 'ascending' ? 'descending' : 'ascending';
+  for (const h of table.tHead.rows[0].cells) h.removeAttribute('aria-sort');
+  th.setAttribute('aria-sort', dir);
+  const idx = th.cellIndex, type = th.dataset.type, factor = dir === 'ascending' ? 1 : -1;
+  const keyed = [...tbody.rows].map(row => {
+    const raw = row.cells[idx].dataset.value ?? row.cells[idx].textContent.trim();
+    return { row, val: type === 'number' ? Number(raw) : raw };
+  });
+  keyed.sort((a, b) => factor * (type === 'number' ? a.val - b.val : collator.compare(a.val, b.val)));
+  const ordered = keyed.map(k => k.row);
+  const update = () => reorder(tbody, ordered);
+  if (table.startViewTransition) table.startViewTransition(update);
+  else if (document.startViewTransition) document.startViewTransition(update);
+  else update();
+  statusEl.textContent = `Sorted by ${button.textContent.replace(/[↕↑↓]/g, '').trim()}, ${dir}, ${ordered.length} rows`;
+}
+
+table.addEventListener('command', (e) => { if (e.command === '--sort') sortBy(e.source); });
+if (!('commandForElement' in HTMLButtonElement.prototype)) {
+  for (const b of table.tHead.querySelectorAll('button[command="--sort"]')) {
+    b.addEventListener('click', () => sortBy(b));
+  }
+}
+</script>
+</body>
+</html>
